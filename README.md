@@ -21,4 +21,4 @@ El pipeline sigue las siguientes etepas de secuencia:
 
 Aspectos técnicos destacados: 
 -El sistema garantiza que el dataset sintético sea idéntico en cada ejecución mediante el uso de una semilla fija (np.random.seed(42)), lo que permite comparar resultados de manera consistente.
--El motor de filtrado opera directamente sobre matrices completas sin utilizar bucles de Python explícitos, maximizando la velocidad gracias a NumPy.
+-El motor de filtrado opera directamente sobre matrices completas sin utilizar bucles de Python explícitos, maximizando la velocidad gracias a NumPy. 
