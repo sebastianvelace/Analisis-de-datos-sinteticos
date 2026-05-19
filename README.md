@@ -49,4 +49,4 @@ Incluir en el paquete final:
 2. `datos_reactor.csv` (CSV original generado al ejecutar `main.py`)
 3. `datos_limpios_final.csv` (CSV ya filtrado)
 4. `comparativa_reactor.png` (gráficas antes/después)
-5. `informe_reactor.pdf` (informe de entrega generado por `Grupo1/informe.py`)
+5. `Informe técnico.pdf` (informe de entrega del taller; `main.py` también genera `informe_reactor.pdf` con `Grupo1/informe.py`)
