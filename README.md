@@ -11,11 +11,12 @@ El pipeline sigue las siguientes etepas de secuencia:
 -El script Grupo1/exportacion.py guarda el DataFrame purificado en el archivo datos_limpios_final.csv
 -Visualización: El script Grupo1/visualizacion.py genera el archivo de imagen comparativa_reactor.png, el cual contiene dos gráficas superpuestas para analizar las señales de temperatura y presión.
 
-¿Qué fue utilizado?
+**¿Qué fue utilizado**
 -NumPy (1.21+)
 -Pandas (1.3+)
 -Matplotlib (3.4+)
--csv (stdlib)
+-pathlib (stdlib)
+-fpdf (stdlib)
 -os (stdlib)
 -Python
 
