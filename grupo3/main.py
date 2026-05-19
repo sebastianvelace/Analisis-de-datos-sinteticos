@@ -2,43 +2,40 @@ from data_carga import cargar_datos
 
 # Importaciones desde las carpetas de los demás grupos
 from grupo2.estadisticas import calcular_estadisticas
-from Grupo1.visualizacion import generar_graficas     
-from Grupo1.exportacion import exportar_datos         
-
-# Importación pendiente del Grupo 4
-# from grupo4.filtrado import filtrar_outliers
+from Grupo1.visualizacion import crear_graficas_comparativas     
+from Grupo1.exportacion import guardar_datos_limpios       
+from grupo4.generador import generar_dataset_reactor
+from filtrado import filtrar_outliers_3_sigma
 
 def main():
-    print("--- Iniciando Sistema de Procesamiento de Datos ---")
-    
-    # Carga de datos
-    # Aquí iría la ruta del CSV sintético generado por el Grupo 4
-    ruta_csv = "../grupo4/datos_sinteticos.csv" 
-    datos = cargar_datos(ruta_csv)
-    
+    print("\n--- Generando Datos Sintéticos ---")
+    nombre_archivo_csv = "datos_reactor.csv"
+    generar_dataset_reactor(nombre_archivo=nombre_archivo_csv, n_muestras=5000)
+    print("Dataset de prueba generado.")
+    # Cargamos los datos
+    print("\n--- Cargando Datos ---")
+    datos = cargar_datos(nombre_archivo_csv)
     if datos is not None:
-        
-        # 2. Análisis Estadístico (Grupo 2)
+        # Análisis Estadístico con la función de estadísticas.py
         print("\n--- Calculando Estadísticas ---")
-        # Aquí le pasas tus datos cargados al archivo estadisticas.py del Grupo 2
         estadisticas = calcular_estadisticas(datos) 
         print("¡Estadísticas calculadas!")
         
         # Filtrado de Outliers 
-        print("\n--- Filtrando Datos ---")
-    
-        # datos_limpios = filtrar_outliers(datos, estadisticas)
-        print("¡Datos filtrados!")
+        print("\n--- Filtrando Datos (Método 3 sigma) ---")
+        datos_limpios = filtrar_outliers_3_sigma(datos, estadisticas)
+        print("¡Valores atípicos filtrados!")
         
         # Visualización y Exportación 
         print("\n--- Generando Reportes y Exportando ---")
         # Aquí envías los datos finales a los archivos del Grupo 1
-        generar_graficas(datos, datos_limpios) # Del archivo visualizacion.py
-        exportar_datos(datos_limpios, "datos_limpios_final.csv") # Del archivo exportacion.py
+        crear_graficas_comparativas(datos, datos_limpios) # Del archivo visualizacion.py
+        guardar_datos_limpios(datos_limpios, "datos_limpios_final.csv") # Del archivo exportacion.py
         print("¡Exportación y visualización finalizada!")
         
     else:
-        print("\n El flujo se detuvo debido a un error en la carga :(")
+        #Se detendrá suavemente el programa aquí por el manejo de errores de data_carga.py
+        print("\n El flujo se detuvo debido a un error en la carga de datos:(")
 
 if __name__ == "__main__":
     main()
