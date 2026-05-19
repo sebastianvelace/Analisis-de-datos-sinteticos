@@ -13,7 +13,7 @@ def calcular_estadisticas(datos: pd.DataFrame) -> dict:
            "media": np.mean(valores),
            "std": np.std(valores),
            "max": np.max(valores),
-            "min": np.min(valores),
+           "min": np.min(valores),
         }
 
     return resultado
