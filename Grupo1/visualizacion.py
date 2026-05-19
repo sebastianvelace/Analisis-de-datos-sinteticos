@@ -30,7 +30,7 @@ def crear_graficas_comparativas(df_crudo, df_limpio, ruta_grafica="comparativa_r
         ax2.set_ylabel("Presión (psi)")
         ax2.legend(loc="upper right")
         ax2.grid(True, linestyle=":", alpha=0.6)
-
+        #--------------Aparte ------------------------
         plt.tight_layout()
         plt.savefig(ruta_grafica, dpi=300)
         plt.close()
