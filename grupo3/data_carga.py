@@ -1,31 +1,40 @@
 import pandas as pd
 
 def cargar_datos(ruta_archivo):
-    """
-    Carga los datos de un archivo CSV y maneja posibles errores.
-    """
+    """Lee un CSV y devuelve un DataFrame o None si hay error."""
     try:
-        # Intentamos leer el archivo CSV
         df = pd.read_csv(ruta_archivo)
-        print(f"Éxito: Datos cargados correctamente desde '{ruta_archivo}'.")
+
+        if df.empty:
+            print(f"Error: '{ruta_archivo}' no tiene filas de datos.")
+            return None
+
+        for col in df.columns:
+            try:
+                df[col] = pd.to_numeric(df[col], errors="raise")
+            except ValueError:
+                print(f"Error: valores no numericos en la columna '{col}'.")
+                return None
+
+        if df.isna().any().any():
+            print(f"Error: hay valores faltantes en '{ruta_archivo}'.")
+            return None
+
+        print(f"Cargado: {ruta_archivo}")
         return df
-        
+
     except FileNotFoundError:
-        # Capturamos si la ruta está mal o el archivo no existe
-        print(f"Error de archivo: No se encontró el archivo en la ruta '{ruta_archivo}'. Verifica el nombre o la ubicación del mismo.")
+        print(f"Error: no existe '{ruta_archivo}'.")
         return None
-        
+
     except pd.errors.EmptyDataError:
-        # Capturamos si el archivo está vacío
-        print(f"Error de formato: El archivo '{ruta_archivo}' está vacío.")
+        print(f"Error: '{ruta_archivo}' esta vacio.")
         return None
-        
+
     except pd.errors.ParserError:
-        # Capturamos si hay errores de formato (ej. letras en vez de números estructurados)
-        print(f"Error de lectura: El archivo '{ruta_archivo}' tiene un formato corrupto o términos irregulares.")
+        print(f"Error: formato invalido en '{ruta_archivo}'.")
         return None
-        
+
     except Exception as e:
-        # Capturamos cualquier otro error inesperado
-        print(f"Error inesperado al cargar los datos: {e}")
+        print(f"Error al cargar datos: {e}")
         return None

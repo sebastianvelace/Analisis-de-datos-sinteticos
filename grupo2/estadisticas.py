@@ -1,7 +1,6 @@
 import numpy as np
 import pandas as pd
 
-datos= 'datos_reactor.csv'
 def calcular_estadisticas(datos: pd.DataFrame) -> dict:
     columnas_numericas = datos.select_dtypes(include=[np.number]).columns
     resultado = {}

@@ -23,7 +23,7 @@ def validar_estadisticas(datos: pd.DataFrame, tolerancia: float = 1e-6) -> bool:
                 todos_ok = False
 
     if todos_ok:
-        print("[OK] Todas las estadísticas son correctas.")
+        print("Estadisticas validadas.")
     return todos_ok
 
 
@@ -36,34 +36,31 @@ def generar_csvs_corruptos(carpeta: str = "grupo2/datos_prueba") -> None:
         f.write("")
 
     with open(f"{carpeta}/sin_filas.csv", "w") as f:
-        f.write("temperatura,presion\n")
+        f.write("Temperatura,Presion\n")
 
     with open(f"{carpeta}/letras.csv", "w") as f:
-        f.write("temperatura,presion\n")
+        f.write("Temperatura,Presion\n")
         f.write("abc,xyz\n")
         f.write("100,200\n")
 
     with open(f"{carpeta}/columnas_incompletas.csv", "w") as f:
-        f.write("temperatura,presion\n")
+        f.write("Temperatura,Presion\n")
         f.write("100\n")
         f.write("200,300\n")
 
     df_ok = pd.DataFrame({
-        "temperatura": np.random.normal(100, 5, 20),
-        "presion": np.random.normal(50, 2, 20),
+        "Temperatura": np.random.normal(100, 5, 20),
+        "Presion": np.random.normal(50, 2, 20),
     })
     df_ok.to_csv(f"{carpeta}/correcto.csv", index=False)
 
-    print(f"[OK] CSVs de prueba generados en '{carpeta}/'")
+    print(f"CSVs de prueba en '{carpeta}/'")
 
 
 if __name__ == "__main__":
-    print("=== Validación con datos de muestra ===")
     muestra = pd.DataFrame({
         "temperatura": [100.0, 102.0, 98.0, 101.0, 99.0],
         "presion":     [50.0,  51.0,  49.0, 50.5,  50.2],
     })
     validar_estadisticas(muestra)
-
-    print("\n=== Generando CSVs corruptos ===")
     generar_csvs_corruptos()
